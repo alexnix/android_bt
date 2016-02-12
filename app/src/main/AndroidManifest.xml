@@ -7,21 +7,23 @@
 
     <application
         android:allowBackup="true"
+        android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".DeviceList_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LampRemote_Activity"
-            android:label="@string/title_activity_lamp_remote_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".ControlsActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

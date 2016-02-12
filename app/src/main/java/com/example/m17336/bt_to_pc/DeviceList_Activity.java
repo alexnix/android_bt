@@ -1,5 +1,6 @@
 package com.example.m17336.bt_to_pc;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -73,6 +74,7 @@ public class DeviceList_Activity extends AppCompatActivity {
     }
 
     private void list_init() {
+        final Activity that = this;
         ListView lv = (ListView) findViewById(R.id.bt_devices);
         lv.setAdapter(mArrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,7 +89,7 @@ public class DeviceList_Activity extends AppCompatActivity {
 
                 mBluetoothAdapter.cancelDiscovery();
 
-                ConnectThread con = new ConnectThread(device, new EventsHandeling(snackbar));
+                ConnectThread con = new ConnectThread(device, new EventsHandeling(snackbar, that));
                 con.start();
 
             }

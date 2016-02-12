@@ -5,6 +5,8 @@ import android.bluetooth.BluetoothSocket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
+
 import android.os.Handler;
 
 /**
@@ -24,6 +26,7 @@ public class CommunicationThread extends Thread {
             os = socket.getOutputStream();
         } catch (IOException e) {
             e.printStackTrace();
+            handler.obtainMessage(EventsHandeling.ERROR_OBTAIN_STREAMS).sendToTarget();
         }
     }
 
@@ -37,16 +40,16 @@ public class CommunicationThread extends Thread {
                 String data = new String(buffer, 0, bytes);
                 handler.obtainMessage(EventsHandeling.DATA_RECEIVED, data).sendToTarget();
             } catch (IOException e){
-
+                handler.obtainMessage(EventsHandeling.ERROR_COMMUNICATION).sendToTarget();
             }
         }
     }
 
-    public void write(byte[] bytes){
+    public void write(String message){
+        String m = message + '\n';
+        byte[] msgBuffer = m.getBytes();
         try {
-            os.write(bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            os.write(msgBuffer);
+        } catch (IOException e) {}
     }
 }
